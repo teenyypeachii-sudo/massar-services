@@ -1,0 +1,71 @@
+﻿(function ($) {
+
+    $.fn.RadarChart = function (options) {
+        var maxValue = options.max;
+        var averageValue = options.avg;
+
+        var subjects = options.subjects;
+        var notes = options.notes;
+        var avgerageNotes = options.avgNotes;
+
+        var marksData = {
+            labels: subjects,
+            datasets: [{
+                label: options.studentNoteLabel,
+                backgroundColor: "rgba(0,0,0,0)",
+                borderColor: "rgba(200,0,0,0.6)",
+                fill: false,
+                radius: 6,
+                pointRadius: 6,
+                pointBorderWidth: 3,
+                pointBackgroundColor: "orange",
+                pointBorderColor: "rgba(200,0,0,0.6)",
+                pointHoverRadius: 10,
+                data: notes,
+            },
+            {
+                label: options.avgNoteLabel,
+                backgroundColor: "rgba(0,0,0,0)",
+                borderColor: "rgba(0,0,200,0.6)",
+                fill: false,
+                radius: 6,
+                pointRadius: 6,
+                pointBorderWidth: 3,
+                pointBackgroundColor: "blue",
+                pointBorderColor: "rgba(0,0,200,0.6)",
+                pointHoverRadius: 10,
+                data: avgerageNotes,
+            }]
+        };
+
+        var chartOptions = {
+            scale: {
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: maxValue,
+                    stepSize: averageValue
+                },
+                pointLabels: {
+                    fontSize: options.fontSize
+                }
+            },
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontFamily: 'sans-serif'
+                }
+            }
+        };
+
+        var radarChart = new Chart($(this), {
+            type: 'radar',
+            data: marksData,
+            options: chartOptions
+        });
+
+        return radarChart;
+    }
+
+
+})(jQuery);
